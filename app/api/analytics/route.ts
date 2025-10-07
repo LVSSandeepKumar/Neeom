@@ -81,7 +81,7 @@ export async function GET() {
 
     return NextResponse.json({
       portfolioProjects: {
-        totalCount: totalProjects,
+        totalCount: totalProjects.length,
         lastMonthCount: projectsLastMonth,
         growthPercentage: projectGrowth,
         byCategory: projectsByCategory.map((category) => ({
@@ -90,13 +90,13 @@ export async function GET() {
         })),
       },
       heroSlides: {
-        totalCount: totalSlides,
+        totalCount: totalSlides.length,
         activeCount: activeSlides,
         lastMonthCount: slidesLastMonth,
         growthPercentage: slideGrowth,
       },
       teamMembers: {
-        totalCount: totalTeamMembers,
+        totalCount: totalTeamMembers.length,
         lastMonthCount: teamMembersLastMonth,
         growthPercentage: teamMemberGrowth,
         withProjectsCount: teamMembersWithProjects,
