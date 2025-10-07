@@ -27,6 +27,27 @@ export async function GET() {
       }),
     ]);
 
+    // Portfolio Projects Analytics
+    const thaatha = await Promise.all([
+      prisma.project.findMany(),
+      prisma.project.count({
+        where: {
+          createdAt: {
+            gte: lastMonthStart,
+            lte: lastMonthEnd,
+          },
+        },
+      }),
+      prisma.project.groupBy({
+        by: ["category"],
+        _count: {
+          id: true,
+        },
+      }),
+    ]);
+
+    console.log("Thaatha ra luccha", thaatha);
+
     // Hero Slides Analytics
     const [totalSlides, activeSlides, slidesLastMonth] = await Promise.all([
       prisma.heroSlide.findMany(),
