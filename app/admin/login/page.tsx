@@ -56,14 +56,6 @@ export default function AdminLoginPage() {
             <Button type="submit" className="w-full bg-orange-500 hover:bg-orange-600 text-white">
               Login
             </Button>
-            <Button
-              type="button"
-              variant="outline"
-              className="w-full mt-2"
-              onClick={() => router.push("/admin/signup")}
-            >
-              Signup
-            </Button>
           </form>
         </CardContent>
       </Card>

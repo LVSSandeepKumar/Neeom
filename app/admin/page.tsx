@@ -10,7 +10,7 @@ export default function AdminPage() {
   const router = useRouter();
 
   if (!isAuthenticated) {
-    router.push("/admin/signup");
+    router.push("/admin/login");
   }
 
   return <AdminDashboard />;
