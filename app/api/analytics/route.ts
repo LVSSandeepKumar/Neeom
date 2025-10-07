@@ -10,7 +10,7 @@ export async function GET() {
 
     // Portfolio Projects Analytics
     const [totalProjects, projectsLastMonth, projectsByCategory] = await Promise.all([
-      prisma.project.count(),
+      prisma.project.findMany(),
       prisma.project.count({
         where: {
           createdAt: {
@@ -29,7 +29,7 @@ export async function GET() {
 
     // Hero Slides Analytics
     const [totalSlides, activeSlides, slidesLastMonth] = await Promise.all([
-      prisma.heroSlide.count(),
+      prisma.heroSlide.findMany(),
       prisma.heroSlide.count({
         where: {
           isActive: true,
@@ -47,7 +47,7 @@ export async function GET() {
 
     // Team Members Analytics
     const [totalTeamMembers, teamMembersLastMonth, teamMembersWithProjects] = await Promise.all([
-      prisma.teamMember.count(),
+      prisma.teamMember.findMany(),
       prisma.teamMember.count({
         where: {
           createdAt: {
@@ -67,16 +67,16 @@ export async function GET() {
 
     // Calculate growth percentages
     const projectGrowth =
-      totalProjects > 0 && projectsLastMonth > 0
-        ? (((totalProjects - projectsLastMonth) / projectsLastMonth) * 100).toFixed(2)
+      totalProjects.length > 0 && projectsLastMonth > 0
+        ? (((totalProjects.length - projectsLastMonth) / projectsLastMonth) * 100).toFixed(2)
         : "0.00";
     const slideGrowth =
-      totalSlides > 0 && slidesLastMonth > 0
-        ? (((totalSlides - slidesLastMonth) / slidesLastMonth) * 100).toFixed(2)
+      totalSlides.length > 0 && slidesLastMonth > 0
+        ? (((totalSlides.length - slidesLastMonth) / slidesLastMonth) * 100).toFixed(2)
         : "0.00";
     const teamMemberGrowth =
-      totalTeamMembers > 0 && teamMembersLastMonth > 0
-        ? (((totalTeamMembers - teamMembersLastMonth) / teamMembersLastMonth) * 100).toFixed(2)
+      totalTeamMembers.length > 0 && teamMembersLastMonth > 0
+        ? (((totalTeamMembers.length - teamMembersLastMonth) / teamMembersLastMonth) * 100).toFixed(2)
         : "0.00";
 
     return NextResponse.json({
@@ -101,7 +101,7 @@ export async function GET() {
         growthPercentage: teamMemberGrowth,
         withProjectsCount: teamMembersWithProjects,
         percentageWithProjects:
-          totalTeamMembers > 0 ? ((teamMembersWithProjects / totalTeamMembers) * 100).toFixed(2) : "0.00",
+          totalTeamMembers.length > 0 ? ((teamMembersWithProjects / totalTeamMembers.length) * 100).toFixed(2) : "0.00",
       },
       timestamp: now.toISOString(),
     });
