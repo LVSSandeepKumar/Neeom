@@ -100,32 +100,42 @@ export async function GET() {
         ? (((totalTeamMembers.length - teamMembersLastMonth) / teamMembersLastMonth) * 100).toFixed(2)
         : "0.00";
 
-    return NextResponse.json({
-      portfolioProjects: {
-        totalCount: totalProjects.length,
-        lastMonthCount: projectsLastMonth,
-        growthPercentage: projectGrowth,
-        byCategory: projectsByCategory.map((category) => ({
-          category: category.category,
-          count: category._count.id,
-        })),
+    return NextResponse.json(
+      {
+        portfolioProjects: {
+          totalCount: totalProjects.length,
+          lastMonthCount: projectsLastMonth,
+          growthPercentage: projectGrowth,
+          byCategory: projectsByCategory.map((category) => ({
+            category: category.category,
+            count: category._count.id,
+          })),
+        },
+        heroSlides: {
+          totalCount: totalSlides.length,
+          activeCount: activeSlides,
+          lastMonthCount: slidesLastMonth,
+          growthPercentage: slideGrowth,
+        },
+        teamMembers: {
+          totalCount: totalTeamMembers.length,
+          lastMonthCount: teamMembersLastMonth,
+          growthPercentage: teamMemberGrowth,
+          withProjectsCount: teamMembersWithProjects,
+          percentageWithProjects:
+            totalTeamMembers.length > 0
+              ? ((teamMembersWithProjects / totalTeamMembers.length) * 100).toFixed(2)
+              : "0.00",
+        },
+        timestamp: now.toISOString(),
       },
-      heroSlides: {
-        totalCount: totalSlides.length,
-        activeCount: activeSlides,
-        lastMonthCount: slidesLastMonth,
-        growthPercentage: slideGrowth,
-      },
-      teamMembers: {
-        totalCount: totalTeamMembers.length,
-        lastMonthCount: teamMembersLastMonth,
-        growthPercentage: teamMemberGrowth,
-        withProjectsCount: teamMembersWithProjects,
-        percentageWithProjects:
-          totalTeamMembers.length > 0 ? ((teamMembersWithProjects / totalTeamMembers.length) * 100).toFixed(2) : "0.00",
-      },
-      timestamp: now.toISOString(),
-    });
+      {
+        status: 200,
+        headers: {
+          "Cache-Control": "no-store, max-age=0",
+        },
+      }
+    );
   } catch (error: any) {
     return NextResponse.json({ error: error.message || "Failed to fetch analytics data" }, { status: 500 });
   }
