@@ -1,0 +1,75 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Project {
+  id                  String              @id @default(auto()) @map("_id") @db.ObjectId
+  projectNo           Int                 @unique
+  category            String
+  subcategory         String
+  title               String
+  shortDescription    String
+  detailedDescription String
+  images              String[]
+  location            String
+  area                String
+  completionDate      DateTime
+  clientName          String
+  features            String[]
+  projectTeamMembers  ProjectTeamMember[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model HeroSlide {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  slideNumber     Int
+  isActive        Boolean  @default(false)
+  mainTitle       String
+  subTitle        String
+  description     String
+  backgroundImage String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model TeamMember {
+  id                 String              @id @default(auto()) @map("_id") @db.ObjectId
+  fullName           String
+  role               String
+  description        String
+  profileImage       String
+  projectTeamMembers ProjectTeamMember[] // Explicit join
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+}
+
+model Admin {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  username  String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ProjectTeamMember {
+  id           String @id @default(auto()) @map("_id") @db.ObjectId
+  projectId    String @db.ObjectId
+  teamMemberId String @db.ObjectId
+
+  project    Project    @relation(fields: [projectId], references: [id])
+  teamMember TeamMember @relation(fields: [teamMemberId], references: [id])
+}
+model staticInfo{
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  key      String   @unique
+  value    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
