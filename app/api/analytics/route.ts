@@ -1,6 +1,8 @@
-import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-import { subMonths, startOfMonth, endOfMonth } from "date-fns";
+import { NextResponse } from "next/server";
+import { endOfMonth, startOfMonth } from "date-fns";
+
+// export const dynamic = "force-dynamic";
 
 export async function GET() {
   try {
@@ -26,27 +28,6 @@ export async function GET() {
         },
       }),
     ]);
-
-    // Portfolio Projects Analytics
-    const thaatha = await Promise.all([
-      prisma.project.findMany(),
-      prisma.project.count({
-        where: {
-          createdAt: {
-            gte: lastMonthStart,
-            lte: lastMonthEnd,
-          },
-        },
-      }),
-      prisma.project.groupBy({
-        by: ["category"],
-        _count: {
-          id: true,
-        },
-      }),
-    ]);
-
-    console.log("Thaatha ra luccha", thaatha);
 
     // Hero Slides Analytics
     const [totalSlides, activeSlides, slidesLastMonth] = await Promise.all([
@@ -132,10 +113,19 @@ export async function GET() {
       {
         status: 200,
         headers: {
-          "Cache-Control": "no-store, max-age=0",
+          "Cache-Control": "no-store, max-age=0, public, max-age=0, s-maxage=0, stale-while-revalidate=0",
         },
       }
     );
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message || "Failed to fetch analytics data" }, { status: 500 });
+  }
+}
+
+export async function POST() {
+  try {
+    const analytics = {};
+    return NextResponse.json(analytics);
   } catch (error: any) {
     return NextResponse.json({ error: error.message || "Failed to fetch analytics data" }, { status: 500 });
   }
