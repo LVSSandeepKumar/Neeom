@@ -6,6 +6,9 @@ import { PortfolioPreview } from "@/components/sections/portfolio-preview"
 import { LeadershipSection } from "@/components/sections/leadership-section"
 import { ZoomProvider } from "@/contexts/zoom-context"
 import "../styles/globals.css"
+import { seoConfig } from "@/lib/seoConfig"
+
+export const metadata = seoConfig.home;
 
 export default function HomePage() {
   return (

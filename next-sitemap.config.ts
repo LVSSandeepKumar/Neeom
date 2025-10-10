@@ -1,5 +1,5 @@
 const config = {
-  siteUrl: "https://neeom.vercel.app/",
+  siteUrl: process.env.WEB_URL || "https://neeom.vercel.app/",
   generateRobotsTxt: true,
   sitemapSize: 7000,
 };

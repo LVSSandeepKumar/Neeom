@@ -1,14 +1,17 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Navbar } from "@/components/navbar"
-import { ZoomProvider } from "@/contexts/zoom-context"
-import { PortfolioGrid } from "@/components/portfolio/portfolio-grid"
-import { PortfolioSidebar } from "@/components/portfolio/portfolio-sidebar"
+import { useState } from "react";
+import { Navbar } from "@/components/navbar";
+import { ZoomProvider } from "@/contexts/zoom-context";
+import { PortfolioGrid } from "@/components/portfolio/portfolio-grid";
+import { PortfolioSidebar } from "@/components/portfolio/portfolio-sidebar";
+import { seoConfig } from "@/lib/seoConfig";
+
+export const metadata = seoConfig.portfolio;
 
 export default function PortfolioPage() {
-  const [selectedCategory, setSelectedCategory] = useState("All Projects")
-  const [selectedSubCategory, setSelectedSubCategory] = useState("")
+  const [selectedCategory, setSelectedCategory] = useState("All Projects");
+  const [selectedSubCategory, setSelectedSubCategory] = useState("");
 
   return (
     <ZoomProvider>
@@ -50,5 +53,5 @@ export default function PortfolioPage() {
         </main>
       </div>
     </ZoomProvider>
-  )
+  );
 }

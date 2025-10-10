@@ -1,10 +1,12 @@
-import { Navbar } from "@/components/navbar"
-import { ZoomProvider } from "@/contexts/zoom-context"
-import { ServicesHero } from "@/components/services/services-hero"
-import { ServicesList } from "@/components/services/services-list"
-import { ProcessSection } from "@/components/services/process-section"
-import { ContactCTA } from "@/components/services/contact-cta"
+import { Navbar } from "@/components/navbar";
+import { ZoomProvider } from "@/contexts/zoom-context";
+import { ServicesHero } from "@/components/services/services-hero";
+import { ServicesList } from "@/components/services/services-list";
+import { ProcessSection } from "@/components/services/process-section";
+import { ContactCTA } from "@/components/services/contact-cta";
+import { seoConfig } from "@/lib/seoConfig";
 
+export const metadata = seoConfig.services;
 export default function ServicesPage() {
   return (
     <ZoomProvider>
@@ -18,5 +20,5 @@ export default function ServicesPage() {
         </main>
       </div>
     </ZoomProvider>
-  )
+  );
 }
