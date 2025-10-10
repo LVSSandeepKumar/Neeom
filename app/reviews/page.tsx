@@ -8,8 +8,6 @@ import { ReviewStats } from "@/components/reviews/review-stats";
 import { Star, Users, Repeat, ThumbsUp } from "lucide-react";
 import { seoConfig } from "@/lib/seoConfig";
 
-export const metadata = seoConfig.reviews;
-
 // Define interface for stat structure
 interface Stat {
   icon: React.ComponentType<{ className?: string }>;
