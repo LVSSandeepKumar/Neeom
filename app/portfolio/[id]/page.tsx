@@ -1,7 +1,8 @@
-"use client"
+"use client";
 import { notFound } from "next/navigation";
 import { ProjectDetails } from "@/components/portfolio/project-details";
 import { useProject } from "@/hooks/useProjects";
+import { Loader2 } from "lucide-react";
 
 interface PageProps {
   params: {
@@ -26,10 +27,28 @@ interface Project {
 }
 
 export default function ProjectPage({ params }: PageProps) {
-  const { data: projectData, isLoading, error } = useProject(params.id);
+  const { data: projectData, isLoading,  error } = useProject(params.id);
+
+  // const isLoading = true;
 
   if (isLoading) {
-    return <div>Loading project...</div>;
+    return (
+      <>
+        <div className="h-[80vh] w-full flex items-center justify-center">
+          <Loader2 className="animate-spin mr-2 duration-1000 transition-all" />
+          Loading project...
+        </div>
+        <div
+          className="absolute inset-0 flex items-center justify-center opacity-10"
+          style={{
+            backgroundImage: "url(/logo-neeom-new.jpg)",
+            backgroundSize: "500px 500px",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center",
+          }}
+        />
+      </>
+    );
   }
 
   if (error || !projectData) {
@@ -47,10 +66,11 @@ export default function ProjectPage({ params }: PageProps) {
     completionDate: new Date(projectData.completionDate).getFullYear().toString() || "Unknown",
     location: projectData.location || "Unknown",
     area: projectData.area || "Unknown",
-    team: projectData.projectTeamMembers?.map((member: any) => ({
-      name: member.teamMember.fullName,
-      role: member.teamMember.role,
-    })) || [],
+    team:
+      projectData.projectTeamMembers?.map((member: any) => ({
+        name: member.teamMember.fullName,
+        role: member.teamMember.role,
+      })) || [],
     features: projectData.features || [],
     client: projectData.clientName || "Unknown",
   };
