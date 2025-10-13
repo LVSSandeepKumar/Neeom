@@ -28,6 +28,7 @@ import { LeadershipManager } from "./leadership-manager";
 import { GalleryManager } from "./gallery-manager";
 import { fetchAnalytics, type AnalyticsData } from "@/lib/api/admin";
 import ReviewManager from "./review-manager";
+import { ChangePasswordDialog } from "./change-password-dialog";
 
 const DASHBOARD_HEADER_TABS = [
   { id: "overview", label: "Overview", icon: BarChart3 },
@@ -320,6 +321,7 @@ export function AdminDashboard() {
                   {user?.charAt(0).toUpperCase()}
                 </div>
               </div>
+              <ChangePasswordDialog />
               <Button
                 variant="outline"
                 size="sm"
