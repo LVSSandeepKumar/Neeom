@@ -4,6 +4,7 @@ import { AboutSection } from "@/components/sections/about-section"
 import { ExpertiseSection } from "@/components/sections/expertise-section"
 import { PortfolioPreview } from "@/components/sections/portfolio-preview"
 import { LeadershipSection } from "@/components/sections/leadership-section"
+import { PartnersSection } from "@/components/sections/partners-section"
 import { ZoomProvider } from "@/contexts/zoom-context"
 import "../styles/globals.css"
 import { seoConfig } from "@/lib/seoConfig"
@@ -21,6 +22,7 @@ export default function HomePage() {
           <ExpertiseSection />
           <PortfolioPreview />
           <LeadershipSection />
+          <PartnersSection />
         </main>
       </div>
     </ZoomProvider>
