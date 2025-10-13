@@ -93,41 +93,6 @@ export function AdminDashboard() {
     },
   ];
 
-  const recentActivities = [
-    {
-      id: 1,
-      action: "New project added",
-      description: "Project 8 - Modern Villa Design added to portfolio",
-      time: "2 hours ago",
-      icon: Plus,
-      iconBg: "bg-green-100 text-green-600",
-    },
-    {
-      id: 2,
-      action: "Hero slide updated",
-      description: "Slide 1 - Updated title and description",
-      time: "4 hours ago",
-      icon: Edit,
-      iconBg: "bg-blue-100 text-blue-600",
-    },
-    {
-      id: 3,
-      action: "Team member added",
-      description: "Sarah Johnson joined as Senior Interior Designer",
-      time: "1 day ago",
-      icon: UserCheck,
-      iconBg: "bg-purple-100 text-purple-600",
-    },
-    {
-      id: 4,
-      action: "Project completed",
-      description: "Project 7 - Restaurant Interior Design delivered",
-      time: "2 days ago",
-      icon: UserCheck,
-      iconBg: "bg-green-100 text-green-600",
-    },
-  ];
-
   const renderContent = () => {
     if (isLoading) {
       return (
