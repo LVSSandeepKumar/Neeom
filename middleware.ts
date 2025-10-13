@@ -2,7 +2,7 @@ import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
 import { jwtVerify } from "jose"
 
-const PUBLIC_PATHS = ["/admin/login", "/admin/signup", "/"]
+const PUBLIC_PATHS = ["/admin/login", "/admin/signup", "/", "/admin/forgot-password"]
 
 // jose requires Uint8Array for secret
 const secret = new TextEncoder().encode(process.env.JWT_SECRET || "your-secret-key")
@@ -13,6 +13,7 @@ export async function middleware(request: NextRequest) {
   if (
     pathname.startsWith("/admin") &&
     !PUBLIC_PATHS.includes(pathname) &&
+    !pathname.startsWith("/admin/reset-password") &&
     !pathname.endsWith("/login") &&
     !pathname.endsWith("/signup")
   ) {

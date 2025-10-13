@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { useAuth } from "@/contexts/auth-context"
+import Link from "next/link"
 
 export default function AdminLoginPage() {
   const [username, setUsername] = useState("")
@@ -53,6 +54,14 @@ export default function AdminLoginPage() {
               required
             />
             {error && <p className="text-red-500 text-sm">{error}</p>}
+            <div className="text-sm text-right">
+              <Link
+                href="/admin/forgot-password"
+                className="text-blue-600 hover:text-blue-800"
+              >
+                Forgot Password?
+              </Link>
+            </div>
             <Button type="submit" className="w-full bg-orange-500 hover:bg-orange-600 text-white">
               Login
             </Button>
