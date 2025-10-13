@@ -27,7 +27,7 @@ export function HeroSlider() {
     if (slides.length === 0) return;
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 6000); // Auto-slide every 6 seconds
+    }, 3000); // Auto-slide every  seconds
 
     return () => clearInterval(timer);
   }, [slides.length]);
