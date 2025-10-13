@@ -29,6 +29,7 @@ import { GalleryManager } from "./gallery-manager";
 import { fetchAnalytics, type AnalyticsData } from "@/lib/api/admin";
 import ReviewManager from "./review-manager";
 import { ChangePasswordDialog } from "./change-password-dialog";
+import { PartnerManager } from "./partner-manager";
 
 const DASHBOARD_HEADER_TABS = [
   { id: "overview", label: "Overview", icon: BarChart3 },
@@ -36,6 +37,7 @@ const DASHBOARD_HEADER_TABS = [
   { id: "slider", label: "Hero Slider", icon: Presentation },
   { id: "leadership", label: "Team", icon: Users },
   { id: "reviews", label: "Reviews", icon: Users },
+  { id: "partners", label: "Partners", icon: Users },
   // { id: "gallery", label: "Gallery", icon: ImageIcon },
 ];
 
@@ -113,6 +115,8 @@ export function AdminDashboard() {
         return <GalleryManager />;
       case "reviews":
         return <ReviewManager />;
+      case "partners":
+        return <PartnerManager />;
       default:
         return (
           <div className="space-y-8">
@@ -306,7 +310,7 @@ export function AdminDashboard() {
         {/* Enhanced Tab Navigation */}
         <div className="mb-8">
           <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-2">
-            <nav className={`grid w-full grid-cols-5 bg-gray-50 rounded-lg p-1`}>
+            <nav className={`grid w-full grid-cols-${DASHBOARD_HEADER_TABS.length} bg-gray-50 rounded-lg p-1`}>
               {DASHBOARD_HEADER_TABS.map((tab) => (
                 <button
                   key={tab.id}
