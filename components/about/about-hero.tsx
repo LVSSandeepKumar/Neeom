@@ -36,8 +36,8 @@ export function AboutHero() {
       ))}
       <div className="absolute inset-0 bg-black/50" />
       <div className="relative text-center text-white max-w-4xl px-4">
-        <h1 className="text-4xl md:text-6xl font-bold mb-4">About NEEOM Designs</h1>
-        <p className="text-xl md:text-2xl text-gray-200">
+        <h1 className="text-4xl md:text-6xl font-bold mb-4 anim-slide-up">About NEEOM Designs</h1>
+        <p className="text-xl md:text-2xl text-gray-200 anim-slide-up">
           Creating exceptional spaces through innovative design and expert craftsmanship
         </p>
       </div>

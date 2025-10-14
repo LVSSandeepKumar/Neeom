@@ -42,34 +42,29 @@ export function PartnersSection() {
     <section className="py-16 bg-gray-50 dark:bg-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4 anim-slide-up">
             Our Trusted Partners
           </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto anim-slide-up">
             Working with industry leaders to deliver excellence in design and construction
           </p>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8 mb-8">
-          {featuredPartners.map((partner : any) => (
-            <Card key={partner.id} className="hover:shadow-lg transition-shadow duration-300">
+          {featuredPartners.map((partner: any, index) => (
+            <Card
+              key={partner.id}
+              className="hover:shadow-lg transition-shadow duration-300 anim-slide-up"
+              style={{ "--index": index }}
+            >
               <CardContent className="p-6">
                 <div className="relative w-full h-32 mb-4">
-                  <Image
-                    src={partner.logo || "/placeholder.svg"}
-                    alt={partner.name}
-                    fill
-                    className="object-contain"
-                  />
+                  <Image src={partner.logo || "/placeholder.svg"} alt={partner.name} fill className="object-contain" />
                 </div>
                 <div className="text-center">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                    {partner.name}
-                  </h3>
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{partner.name}</h3>
                   {partner.description && (
-                    <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
-                      {partner.description}
-                    </p>
+                    <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">{partner.description}</p>
                   )}
                   {partner.website && (
                     <a

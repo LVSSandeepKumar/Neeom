@@ -164,7 +164,7 @@ export function ContactCTA() {
   return (
     <section className="py-16 bg-white dark:bg-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Card className="bg-gradient-to-r from-gray-600 to-gray-700 text-white">
+        <Card className="bg-gradient-to-r from-gray-600 to-gray-700 text-white anim-zoom-in">
           <CardContent className="p-12 text-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Start Your Project?</h2>
             <p className="text-xl mb-8 text-gray-100">

@@ -153,14 +153,14 @@ export function ProjectDetails({ project }: ProjectDetailsProps) {
         </Button>
 
         {/* Carousel */}
-        <div className="mb-8">
+        <div className="mb-8 anim-slide-up">
           <ImageCarousel images={currentProject.images} title={currentProject.title} visibleItems={3} />
         </div>
 
         {/* Two-Column Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Left Column: Title, Category, Description */}
-          <Card className="mb-8">
+          <Card className="mb-8 anim-slide-right">
             <CardContent className="p-6">
               <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">{currentProject.title}</h1>
               <Badge variant="secondary" className="mb-4">
@@ -184,7 +184,7 @@ export function ProjectDetails({ project }: ProjectDetailsProps) {
           </Card>
 
           {/* Right Column: Project Details, Team, CTA */}
-          <div className="space-y-6">
+          <div className="space-y-6 anim-slide-left">
             {/* Project Details */}
             <Card>
               <CardContent className="p-6">

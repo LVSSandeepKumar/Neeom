@@ -59,20 +59,20 @@ export function HeroSlider() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
               <div className="max-w-2xl text-white">
                 {/* Main Category Header */}
-                <div className="mb-6">
+                <div className="mb-6 anim-slide-up">
                   <p className="text-lg md:text-xl font-bold text-white/90 mb-2 tracking-wider uppercase">
                     Interior and Architectural Designs
                   </p>
                   <div className="w-24 h-1 bg-white/60"></div>
                 </div>
 
-                <p className="text-lg font-medium text-gray-200 mb-4 tracking-wider">{slide.mainTitle}</p>
-                <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">{slide.subTitle}</h1>
-                <p className="text-xl md:text-2xl mb-8 text-gray-200 leading-relaxed">{slide.description}</p>
+                <p className="text-lg font-medium text-gray-200 mb-4 tracking-wider anim-slide-up">{slide.mainTitle}</p>
+                <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight anim-slide-up">{slide.subTitle}</h1>
+                <p className="text-xl md:text-2xl mb-8 text-gray-200 leading-relaxed anim-slide-up">{slide.description}</p>
                 <Button
                   size="lg"
                   onClick={handleExploreMore}
-                  className="bg-gray-700 hover:bg-gray-800 text-white px-8 py-4 text-lg font-medium"
+                  className="bg-gray-700 hover:bg-gray-800 text-white px-8 py-4 text-lg font-medium anim-slide-up"
                 >
                   Explore More →
                 </Button>

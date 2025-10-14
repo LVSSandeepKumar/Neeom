@@ -110,80 +110,252 @@
   .btn-custom {
     @apply hover:scale-105 transition-all duration-300;
   }
+
+  /* 🔹 Universal shimmer effect */
+  .shimmer {
+    position: relative;
+    overflow: hidden;
+    background-color: #e5e7eb; /* Tailwind gray-200 */
+  }
+
+  .shimmer::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -150%;
+    height: 100%;
+    width: 150%;
+    background: linear-gradient(
+      90deg,
+      rgba(229, 231, 235, 0) 0%,
+      rgba(255, 255, 255, 0.6) 50%,
+      rgba(229, 231, 235, 0) 100%
+    );
+    animation: shimmer-move 1.5s infinite;
+  }
+
+  @keyframes shimmer-move {
+    100% {
+      left: 150%;
+    }
+  }
 }
 
 /* Animations
 /* Keyframes for the different animations */
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 @keyframes fadeOut {
-  from { opacity: 1; }
-  to   { opacity: 0; }
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 @keyframes slideUp {
-  from { transform: translateY(60px); opacity: 0; }
-  to   { transform: translateY(0); opacity: 1; }
+  from {
+    transform: translateY(60px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 @keyframes slideDown {
-  from { transform: translateY(-20px); opacity: 0; }
-  to   { transform: translateY(0); opacity: 1; }
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 @keyframes slideLeft {
-  from { transform: translateX(20px); opacity: 0; }
-  to   { transform: translateX(0); opacity: 1; }
+  from {
+    transform: translateX(60px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 @keyframes slideRight {
-  from { transform: translateX(-20px); opacity: 0; }
-  to   { transform: translateX(0); opacity: 1; }
+  from {
+    transform: translateX(-60px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 @keyframes zoomIn {
-  from { transform: scale(0.8); opacity: 0; }
-  to   { transform: scale(1); opacity: 1; }
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 @keyframes zoomOut {
-  from { transform: scale(1.2); opacity: 0; }
-  to   { transform: scale(1); opacity: 1; }
+  from {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 @keyframes rotateIn {
-  from { transform: rotate(-30deg); opacity: 0; }
-  to   { transform: rotate(0deg); opacity: 1; }
+  from {
+    transform: rotate(-30deg);
+    opacity: 0;
+  }
+  to {
+    transform: rotate(0deg);
+    opacity: 1;
+  }
 }
 @keyframes bounceIn {
-  0%   { transform: scale(0.5); opacity: 0; }
-  60%  { transform: scale(1.2); opacity: 1; }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
-/* Animation utility classes */
+/* ===========================================
+   🌟 Scroll-linked animation timeline setup
+   =========================================== */
+@scroll-timeline scrollY-timeline {
+  source: auto;
+  orientation: block;
+}
+
+/* ===========================================
+   🎞️ Scroll-triggered Animations
+   =========================================== */
+
+/* Fade In */
 .anim-fade-in {
-  animation: fadeIn 1.0s ease-out forwards;
+  animation-timeline: scrollY-timeline;
+  animation-name: fadeIn;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  animation-timing-function: ease-out;
+  animation-range: entry 0% cover 30%;
 }
+
+/* Fade Out */
 .anim-fade-out {
-  animation: fadeOut 1.0s ease-out forwards;
+  animation-timeline: scrollY-timeline;
+  animation-name: fadeOut;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  animation-timing-function: ease-out;
+  animation-range: entry 0% cover 30%;
 }
+
+/* Slide Up */
 .anim-slide-up {
-  animation: slideUp 1.0s ease-out forwards;
+  animation-timeline: scrollY-timeline;
+  animation-name: slideUp;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  animation-timing-function: ease-out;
+  animation-range: entry 0% cover 30%;
 }
+
+/* Slide Down */
 .anim-slide-down {
-  animation: slideDown 1.0s ease-out forwards;
+  animation-timeline: scrollY-timeline;
+  animation-name: slideDown;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  animation-timing-function: ease-out;
+  animation-range: entry 0% cover 30%;
 }
+
+/* Slide Left */
 .anim-slide-left {
-  animation: slideLeft 1.0s ease-out forwards;
+  animation-timeline: scrollY-timeline;
+  animation-name: slideLeft;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  animation-timing-function: ease-out;
+  animation-range: entry 0% cover 50%;
 }
+
+/* Slide Right */
 .anim-slide-right {
-  animation: slideRight 1.0s ease-out forwards;
+  animation-timeline: scrollY-timeline;
+  animation-name: slideRight;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  animation-timing-function: ease-out;
+  animation-range: entry 0% cover 50%;
 }
+
+/* Zoom In */
 .anim-zoom-in {
-  animation: zoomIn 1.0s ease-out forwards;
+  animation-timeline: scrollY-timeline;
+  animation-name: zoomIn;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  animation-timing-function: ease-out;
+  animation-range: entry 0% cover 30%;
 }
+
+/* Zoom Out */
 .anim-zoom-out {
-  animation: zoomOut 1.0s ease-out forwards;
+  animation-timeline: scrollY-timeline;
+  animation-name: zoomOut;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  animation-timing-function: ease-out;
+  animation-range: entry 0% cover 30%;
 }
+
+/* Rotate In */
 .anim-rotate-in {
-  animation: rotateIn 1.0s ease-out forwards;
+  animation-timeline: scrollY-timeline;
+  animation-name: rotateIn;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  animation-timing-function: ease-out;
+  animation-range: entry 0% cover 30%;
 }
+
+/* Bounce In */
 .anim-bounce-in {
-  animation: bounceIn 1.0s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+  animation-timeline: scrollY-timeline;
+  animation-name: bounceIn;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  animation-timing-function: cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  animation-range: entry 0% cover 30%;
+}
+
+/* Reusable stagger using CSS variable */
+[class*="anim-"] {
+  animation-delay: calc(var(--index, 0) * 0.2s);
 }

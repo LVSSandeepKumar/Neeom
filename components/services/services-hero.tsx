@@ -1,23 +1,23 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { useRouter } from "next/navigation"
-import { useToast } from "@/hooks/use-toast"
-import { MessageCircle } from "lucide-react"
-import { Loader2 } from "lucide-react"
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/hooks/use-toast";
+import { MessageCircle } from "lucide-react";
+import { Loader2 } from "lucide-react";
 
 export function ServicesHero() {
-  const router = useRouter()
-  const { toast } = useToast()
-  const [isConsultationOpen, setIsConsultationOpen] = useState(false)
+  const router = useRouter();
+  const { toast } = useToast();
+  const [isConsultationOpen, setIsConsultationOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -26,18 +26,18 @@ export function ServicesHero() {
     budget: "",
     timeline: "",
     message: "",
-  })
-  const [isSending, setIsSending] = useState(false)
+  });
+  const [isSending, setIsSending] = useState(false);
 
   const handleViewWork = () => {
-    router.push("/portfolio")
-  }
+    router.push("/portfolio");
+  };
 
   const handleConsultationSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSending(true)
+    e.preventDefault();
+    setIsSending(true);
 
-    const subject = "Service Consultation Request"
+    const subject = "Service Consultation Request";
     const html = `
       <h2>${subject}</h2>
       <p><strong>Name:</strong> ${formData.name}</p>
@@ -48,7 +48,7 @@ export function ServicesHero() {
       <p><strong>Timeline:</strong> ${formData.timeline}</p>
       <p><strong>Message:</strong></p>
       <p>${formData.message}</p>
-    `
+    `;
 
     try {
       const res = await fetch("/api/contact/send", {
@@ -62,28 +62,28 @@ export function ServicesHero() {
           message: formData.message,
           html,
         }),
-      })
+      });
       if (res.ok) {
         toast({
           title: "Consultation Request Sent!",
           description: "We'll get back to you within 24 hours to discuss your service requirements.",
-        })
+        });
       } else {
         toast({
           title: "Error",
           description: "Failed to send consultation request.",
           variant: "destructive",
-        })
+        });
       }
     } catch {
       toast({
         title: "Error",
         description: "Failed to send consultation request.",
         variant: "destructive",
-      })
+      });
     }
-    setIsSending(false)
-    setIsConsultationOpen(false)
+    setIsSending(false);
+    setIsConsultationOpen(false);
     setFormData({
       name: "",
       email: "",
@@ -92,8 +92,8 @@ export function ServicesHero() {
       budget: "",
       timeline: "",
       message: "",
-    })
-  }
+    });
+  };
 
   return (
     <section className="relative py-20 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 overflow-hidden">
@@ -108,7 +108,7 @@ export function ServicesHero() {
         }}
       />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center anim-slide-up">
         <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">Our Services</h1>
         <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
           From concept to completion, we provide comprehensive design solutions that transform your vision into reality
@@ -242,10 +242,16 @@ export function ServicesHero() {
                   />
                 </div>
 
-                <Button type="submit" className="w-full bg-gray-700 hover:bg-gray-800 text-white py-3" disabled={isSending}>
+                <Button
+                  type="submit"
+                  className="w-full bg-gray-700 hover:bg-gray-800 text-white py-3"
+                  disabled={isSending}
+                >
                   {isSending ? (
                     <Loader2 className="animate-spin h-4 w-4 mr-2 inline" />
-                  ) : <MessageCircle className="h-4 w-4 mr-2" />}
+                  ) : (
+                    <MessageCircle className="h-4 w-4 mr-2" />
+                  )}
                   Send Consultation Request
                 </Button>
               </form>
@@ -254,5 +260,5 @@ export function ServicesHero() {
         </div>
       </div>
     </section>
-  )
+  );
 }

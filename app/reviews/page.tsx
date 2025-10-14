@@ -25,6 +25,7 @@ interface StaticInfo {
 export default function ReviewsPage() {
   const [stats, setStats] = useState<Stat[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [averageRating, setAverageRating] = useState<number>(0);
 
   // Map API keys to stat structure
@@ -42,6 +43,7 @@ export default function ReviewsPage() {
 
   const fetchStats = async (): Promise<void> => {
     try {
+      setIsLoading(true);
       const response = await fetch("/api/staticInfo");
       const data: StaticInfo[] = await response.json();
       if (response.ok) {
@@ -57,11 +59,16 @@ export default function ReviewsPage() {
         if (ratingItem) {
           setAverageRating(parseFloat(ratingItem.value));
         }
+        setIsLoading(false);
       } else {
+        setIsLoading(false);
         setError("Failed to fetch stats");
       }
     } catch (err) {
+      setIsLoading(false);
       setError("Error fetching stats");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -73,9 +80,9 @@ export default function ReviewsPage() {
           {error && <div className="max-w-4xl mx-auto px-6 py-4 bg-red-100 text-red-700 p-3 rounded mb-4">{error}</div>}
 
           <ReviewsHero rating={averageRating} />
-          <ReviewStats stats={stats} />
+          <ReviewStats stats={stats} isLoading={isLoading} />
           {/* `{JSON.stringify(stats)}` */}
-          <TestimonialsList />
+          {/* <TestimonialsList /> */}
         </main>
       </div>
     </ZoomProvider>
