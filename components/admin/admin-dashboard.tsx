@@ -42,7 +42,7 @@ const DASHBOARD_HEADER_TABS = [
 ];
 
 export function AdminDashboard() {
-  const { logout, user } = useAuth();
+  const { logout } = useAuth();
   const [activeTab, setActiveTab] = useState("overview");
   const [analytics, setAnalytics] = useState<AnalyticsData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -70,9 +70,7 @@ export function AdminDashboard() {
     {
       title: "Portfolio Projects",
       value: analytics?.portfolioProjects.totalCount.toString() ?? "-",
-      change: analytics
-        ? `${analytics.portfolioProjects.lastMonthCount}+`
-        : "-",
+      change: analytics ? `${analytics.portfolioProjects.lastMonthCount}+` : "-",
       icon: FolderOpen,
       gradient: "from-blue-500 to-blue-600",
       iconBg: "bg-blue-100 text-blue-600",
@@ -287,7 +285,7 @@ export function AdminDashboard() {
                   <p className="text-xs text-gray-500 capitalize">admin</p>
                 </div>
                 <div className="w-10 h-10 bg-gradient-to-br from-gray-600 to-gray-700 rounded-full flex items-center justify-center text-white font-semibold text-sm">
-                  {user?.charAt(0).toUpperCase()}
+                  {/* {user?.charAt(0).toUpperCase()} */}A
                 </div>
               </div>
               <ChangePasswordDialog />
@@ -310,7 +308,7 @@ export function AdminDashboard() {
         {/* Enhanced Tab Navigation */}
         <div className="mb-8">
           <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-2">
-            <nav className={`grid w-full grid-cols-${DASHBOARD_HEADER_TABS.length} bg-gray-50 rounded-lg p-1`}>
+            <nav className={`grid w-full grid-cols-6 bg-gray-50 rounded-lg p-1`}>
               {DASHBOARD_HEADER_TABS.map((tab) => (
                 <button
                   key={tab.id}
