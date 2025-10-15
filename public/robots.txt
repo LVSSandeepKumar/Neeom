@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://neeom.vercel.app
+
+# Sitemaps
+Sitemap: https://neeom.vercel.app/sitemap.xml
