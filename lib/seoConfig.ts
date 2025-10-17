@@ -9,6 +9,7 @@ export const seoConfig: Record<string, Metadata> = {
   home: {
     title: "Best Interior Designer in Hyderabad",
     description: "Transform your space with Hyderabad's top interior designers.",
+    google-site-verification:"l_mDqcI6fWATWEoMtJ5OmMYTg000qiHY7riHdwnDy1U",
     keywords: [
       "best interior designer Hyderabad",
       "home interior design",
