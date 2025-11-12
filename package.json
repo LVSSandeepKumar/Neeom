@@ -6,7 +6,7 @@
     "build": "npx prisma generate && next build",
     "dev": "next dev",
     "lint": "next lint",
-    "start": "next start",
+    "start": "npx prisma db seed && npx prisma generate && next start",
     "postbuild": "next-sitemap",
     "db:seed": "ts-node prisma/seed.ts"
   },
