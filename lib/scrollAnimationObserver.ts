@@ -6,37 +6,36 @@ export function observeScrollAnimations(
   animationClass = 'in-view'
 ): { observer: IntersectionObserver; disconnect: () => void } {
   const selectorList = typeof selectors === 'string' ? [selectors] : selectors;
-
-  // Set to track observed elements so we don't observe duplicates
   const observedElements = new Set<Element>();
+  let frameId: number | null = null;
 
-  // Create IntersectionObserver
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add(animationClass);
+        // Add console log for debugging
+        console.log(`Element ${entry.target.className} is now in view.`);
       } else {
         entry.target.classList.remove(animationClass);
+        // Add console log for debugging
+        console.log(`Element ${entry.target.className} is now out of view.`);
       }
     });
   }, options);
 
-  // Function to observe all elements currently in DOM matching selectors
   const observeAllElements = () => {
+    console.log('Running observeAllElements...');
     selectorList.forEach(sel => {
       document.querySelectorAll(sel).forEach(el => {
         if (!observedElements.has(el)) {
           observer.observe(el);
           observedElements.add(el);
+          console.log('Observing element:', el);
         }
       });
     });
   };
 
-  // Observe existing elements initially
-  observeAllElements();
-
-  // Setup MutationObserver to watch for added nodes dynamically
   const mutationObserver = new MutationObserver(mutations => {
     mutations.forEach(mutation => {
       mutation.addedNodes.forEach(node => {
@@ -46,7 +45,6 @@ export function observeScrollAnimations(
             observer.observe(node);
             observedElements.add(node);
           }
-          // Also check descendants matching selector (if node is a container)
           node.querySelectorAll(sel).forEach(descendant => {
             if (!observedElements.has(descendant)) {
               observer.observe(descendant);
@@ -58,14 +56,32 @@ export function observeScrollAnimations(
     });
   });
 
-  mutationObserver.observe(document.body, { childList: true, subtree: true });
+  // Wait for the next animation frame to query the DOM
+  frameId = window.requestAnimationFrame(() => {
+    observeAllElements();
+    mutationObserver.observe(document.body, { childList: true, subtree: true });
 
-  // Return both observers and a disconnect method to cleanup
+    // Fallback: Check for elements already in view on page load
+    // The entries provided by the observer for the initial run are
+    // not guaranteed to be consistent across browsers.
+    // Manually run a check after setting up the observer.
+    window.requestAnimationFrame(() => {
+        observer.takeRecords().forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add(animationClass);
+            }
+        });
+    });
+  });
+  
   return {
     observer,
     disconnect: () => {
       observer.disconnect();
       mutationObserver.disconnect();
+      if (frameId !== null) {
+        window.cancelAnimationFrame(frameId);
+      }
     },
   };
 }
