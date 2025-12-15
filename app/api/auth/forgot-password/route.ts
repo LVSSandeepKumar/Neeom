@@ -31,7 +31,7 @@ export async function POST(request: Request) {
       },
     });
 
-    const WEB_URL = `http://localhost:3000`
+    const WEB_URL = `https://neeomdesigns.com`
     // Create reset URL
     const resetUrl = `${WEB_URL}/admin/reset-password/${resetToken}`;
 
