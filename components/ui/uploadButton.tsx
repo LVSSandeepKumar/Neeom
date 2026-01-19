@@ -33,15 +33,30 @@ const ImageUploadButton = ({ onUploadComplete, multiple = true }: ImageUploadBut
       formData.append("file", file);
 
       try {
-        const res = await fetch("/api/upload-url", {
+        const getSignUrlResponse = await fetch("/api/upload-url", {
           method: "POST",
           body: formData,
         });
 
-        if (!res.ok) throw new Error(`Upload failed: ${res.status}`);
-        const { fileUrl } = await res.json();
+        if (!getSignUrlResponse.ok) throw new Error(`Upload failed: ${getSignUrlResponse.status}`);
 
-        newUrls.push(fileUrl);
+        const { signedUrl } = await getSignUrlResponse.json();
+
+
+        const uploadFileResponse = await fetch(signedUrl, {
+          method: "PUT",
+          headers: {
+            "Content-Type": file.type,
+          },
+          body: file,
+        });
+
+        if (!uploadFileResponse.ok) throw new Error(`S3 Upload failed: ${uploadFileResponse.status}`);
+
+        const location = signedUrl.split("?")[0]; 
+        console.log("File uploaded successfully. Accessible at:", location);
+
+        newUrls.push(location);
       } catch (err) {
         console.error("Upload error:", err);
       }
