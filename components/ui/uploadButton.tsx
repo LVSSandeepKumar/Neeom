@@ -35,7 +35,10 @@ const ImageUploadButton = ({ onUploadComplete, multiple = true }: ImageUploadBut
       try {
         const getSignUrlResponse = await fetch("/api/upload-url", {
           method: "POST",
-          body: formData,
+          body: {
+            fileName: file.name,
+            contentType: file.type,
+          },
         });
 
         if (!getSignUrlResponse.ok) throw new Error(`Upload failed: ${getSignUrlResponse.status}`);
