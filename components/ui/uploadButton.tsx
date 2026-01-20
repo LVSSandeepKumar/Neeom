@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import axios from "axios";
 import Image from "next/image";
 import { useRef, useState } from "react";
 // import "@/styles/globals.css"
@@ -13,7 +14,10 @@ interface ImageUploadButtonProps {
   multiple?: boolean; // Allow multiple file selection
 }
 
-const ImageUploadButton = ({ onUploadComplete, multiple = true }: ImageUploadButtonProps) => {
+const ImageUploadButton = ({
+  onUploadComplete,
+  multiple = true,
+}: ImageUploadButtonProps) => {
   const [progress, setProgress] = useState(0);
   const [urls, setUrls] = useState<string[]>([]); // State to store uploaded URLs
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -41,22 +45,28 @@ const ImageUploadButton = ({ onUploadComplete, multiple = true }: ImageUploadBut
           }),
         });
 
-        if (!getSignUrlResponse.ok) throw new Error(`Upload failed: ${getSignUrlResponse.status}`);
+        if (!getSignUrlResponse.ok)
+          throw new Error(`Upload failed: ${getSignUrlResponse.status}`);
 
         const { signedUrl } = await getSignUrlResponse.json();
 
 
-        const uploadFileResponse = await fetch(signedUrl, {
-          method: "PUT",
+        const uploadFileResponse = axios.put(signedUrl, file, {
           headers: {
             "Content-Type": file.type,
           },
-          body: file,
+          onUploadProgress: (progressEvent) => {
+            if (progressEvent.bytes) {
+              const percentCompleted = Math.round(
+                (progressEvent.loaded * 100) /
+                  (progressEvent.total || progressEvent.loaded),
+              );
+              setProgress(percentCompleted);
+            }
+          },
         });
 
-        if (!uploadFileResponse.ok) throw new Error(`S3 Upload failed: ${uploadFileResponse.status}`);
-
-        const location = signedUrl.split("?")[0]; 
+        const location = signedUrl.split("?")[0];
         console.log("File uploaded successfully. Accessible at:", location);
 
         newUrls.push(location);
@@ -75,7 +85,12 @@ const ImageUploadButton = ({ onUploadComplete, multiple = true }: ImageUploadBut
   return (
     <div className="space-y-4">
       <div className="flex items-center gap-2">
-        <Input type="file" ref={fileInputRef} multiple={multiple} className="w-full" />
+        <Input
+          type="file"
+          ref={fileInputRef}
+          multiple={multiple}
+          className="w-full"
+        />
         {/* <Button type="button" onClick={handleUpload} className="btn-custom"> */}
         <Button type="button" onClick={handleUpload} className="btn-custom">
           Upload {multiple ? "Files" : "File"}
@@ -123,7 +138,10 @@ const ParentComponent = () => {
   return (
     <div>
       <h2>Image Upload Example</h2>
-      <ImageUploadButton onUploadComplete={handleUploadComplete} multiple={true} />
+      <ImageUploadButton
+        onUploadComplete={handleUploadComplete}
+        multiple={true}
+      />
       {uploadedUrls.length > 0 && (
         <div>
           <h3>URLs from Parent:</h3>
@@ -143,4 +161,3 @@ const ParentComponent = () => {
 };
 
 export { ImageUploadButton, ParentComponent };
-

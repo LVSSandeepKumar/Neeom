@@ -271,6 +271,7 @@ export function SliderManager() {
                 onChange={(e) =>
                   setFormData({ ...formData, title: e.target.value })
                 }
+                maxLength={10}
                 placeholder="e.g., TRANSFORMING SPACES"
                 required
               />

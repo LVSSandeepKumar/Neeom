@@ -67,8 +67,8 @@ export function HeroSlider() {
                 </div>
 
                 <p className="text-lg font-medium text-gray-200 mb-4 tracking-wider anim-slide-up">{slide.mainTitle}</p>
-                <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight anim-slide-up">{slide.subTitle}</h1>
-                <p className="text-xl md:text-2xl mb-8 text-gray-200 leading-relaxed anim-slide-up">{slide.description}</p>
+                <h1 className="text-5xl  font-bold mb-6 leading-tight anim-slide-up">{slide.subTitle}</h1>
+                <p className="text-md mb-8 text-gray-200 leading-relaxed anim-slide-up">{slide.description}</p>
                 <Button
                   size="lg"
                   onClick={handleExploreMore}
