@@ -163,6 +163,8 @@ export function HeroManager() {
                 id="mainTitle"
                 value={formData.mainTitle}
                 onChange={(e) => setFormData({ ...formData, mainTitle: e.target.value })}
+                minLength={10}
+                maxLength={30}
                 required
               />
             </div>
@@ -172,6 +174,8 @@ export function HeroManager() {
                 id="subTitle"
                 value={formData.subTitle}
                 onChange={(e) => setFormData({ ...formData, subTitle: e.target.value })}
+                maxLength={60}
+                minLength={10}
                 required
               />
             </div>
@@ -182,6 +186,8 @@ export function HeroManager() {
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                 rows={3}
+                maxLength={360}
+                minLength={30}
                 required
               />
             </div>
