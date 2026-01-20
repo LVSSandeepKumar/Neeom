@@ -163,8 +163,8 @@ export function HeroManager() {
                 id="mainTitle"
                 value={formData.mainTitle}
                 onChange={(e) => setFormData({ ...formData, mainTitle: e.target.value })}
-                minLength={10}
                 maxLength={30}
+                minLength={10}
                 required
               />
             </div>

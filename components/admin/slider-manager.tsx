@@ -271,7 +271,8 @@ export function SliderManager() {
                 onChange={(e) =>
                   setFormData({ ...formData, title: e.target.value })
                 }
-                maxLength={10}
+                maxLength={30}
+                minLength={10}
                 placeholder="e.g., TRANSFORMING SPACES"
                 required
               />
@@ -280,6 +281,8 @@ export function SliderManager() {
             <div>
               <Label htmlFor="subtitle">Subtitle * (Medium text)</Label>
               <Input
+              maxLength={60}
+                minLength={10}
                 id="subtitle"
                 value={formData.subtitle}
                 onChange={(e) =>
@@ -300,6 +303,8 @@ export function SliderManager() {
                 }
                 placeholder="Brief description that appears below the subtitle..."
                 rows={3}
+                maxLength={360}
+                minLength={30}
                 required
               />
             </div>
